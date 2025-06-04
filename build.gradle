@@ -12,22 +12,18 @@ publishing {
             artifactId = 'ffmpeg-kit-https'
             version = version
             
-            // 直接发布AAR文件
             artifact file('library/libs/ffmpeg-kit-https-6.0-2.LTS.aar')
-            
-            // 可选：添加POM信息
+
             pom {
                 name = 'FFmpeg Kit HTTPS'
                 description = 'FFmpeg Kit with HTTPS support'
                 url = 'https://github.com/chenjun1127/ffmpeg-kit-https-aar'
-                
                 licenses {
                     license {
                         name = 'The Apache License, Version 2.0'
                         url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
                     }
                 }
-                
                 developers {
                     developer {
                         id = 'chenjun1127'
@@ -39,3 +35,11 @@ publishing {
         }
     }
 }
+
+// 💡 关键：让 JitPack 找到 assemble 任务
+tasks.register('assemble') {
+    dependsOn publish
+}
+
+// 可选：让默认任务就是发布
+defaultTasks 'publish'
